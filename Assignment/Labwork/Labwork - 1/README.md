@@ -31,7 +31,7 @@ Explanation for above command:
 - `-sV`: Detect which service version is available
 - `-p`: Scans the ports that are requested (exp: FTP=21)
 
-  ![alt text](image.png)
+  ![alt text](evidence/image.png)
 
 
 ### Enumerating Usernames
@@ -42,14 +42,14 @@ Explanation for above command:
 What the command does :
 Enumerates users, shares, groups, and policies over SMB. Useful for finding valid system usernames that might also exist in SSH/Telnet/FTP. It can look for usernames like `msfadmin (metasploitable 2)`, `user` , `admin` etc etc
 
-![alt text](image-1.png)
-![alt text](image-2.png)
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
+![alt text](evidence/image-1.png)
+![alt text](evidence/image-2.png)
+![alt text](evidence/image-3.png)
+![alt text](evidence/image-4.png)
+![alt text](evidence/image-5.png)
+![alt text](evidence/image-6.png)
+![alt text](evidence/image-7.png)
+![alt text](evidence/image-8.png)
 
 ### Web Server Enumeration (HTTP)
 
@@ -62,7 +62,7 @@ Command explanation:
 - `-w`: Wordlist 
 - `-t`: Number of thread and we can also adjust the speed 
 
-![alt text](image-12.png)
+![alt text](evidence/image-12.png)
 
 
 ---
@@ -92,7 +92,7 @@ Using default one from kali could work but the existing file contain a huge amou
 -  `-V`: verbose (shows attempts)
 -  `ftp`: targets ftp service
 
-![alt text](image-11.png)
+![alt text](evidence/image-11.png)
   
 ### 2.2 TELNET Brute force attack using Hydra
     hydra -L userlist.txt -P passwordlist.txt [Target_IP] telnet -V
@@ -102,7 +102,7 @@ Using default one from kali could work but the existing file contain a huge amou
 -  `-V`: verbose (shows attempts)
 -  `telnet`: targets telnet service
 
-![alt text](image-13.png)
+![alt text](evidence/image-13.png)
 
 ### 2.3 SSH Brute force attack using NetExec
 
@@ -115,7 +115,7 @@ We're using NetExec for SSH
 -  `-p passwordlist.txt`: path to password list
 -  `ssh`: specifies SSH as the target service
   
-![alt text](image-14.png)
+![alt text](evidence/image-14.png)
   
 ### 2.4 HTTP Login Brute Force Attack using Burp Suite
 
@@ -140,13 +140,13 @@ Once everything is set up, start the attack. As Burp tries each combination of u
 
 When you see a result that stands out, particularly one with a longer response length or a different status code, right-click on it and choose "Open in Browser." Copy the URL that appears and paste it into Burp's browser. If all goes well, you should be logged into the target website.
 
-![alt text](image-15.png)
-![alt text](image-16.png)
-![alt text](image-17.png)
-![alt text](image-18.png)
-![alt text](image-19.png)
-![alt text](image-20.png)
-![alt text](image-32.png)
+![alt text](evidence/image-15.png)
+![alt text](evidence/image-16.png)
+![alt text](evidence/image-17.png)
+![alt text](evidence/image-18.png)
+![alt text](evidence/image-19.png)
+![alt text](evidence/image-20.png)
+![alt text](evidence/image-32.png)
 ---
 
 ## 3. Traffic Analysis
@@ -154,11 +154,11 @@ When you see a result that stands out, particularly one with a longer response l
 1. Open Wireshark:
    sudo wireshark
 
-![alt text](image-21.png)
+![alt text](evidence/image-21.png)
 
 2. Start capture on the network interface connected to the target.
    
-![alt text](image-22.png)
+![alt text](evidence/image-22.png)
 
 3. Apply filters:
    - FTP: `tcp.port == 21`
@@ -166,15 +166,15 @@ When you see a result that stands out, particularly one with a longer response l
    - SSH: `tcp.port == 22`
    - HTTP: `tcp.port == 80`
 
-![alt text](image-23.png)
+![alt text](evidence/image-23.png)
 > here we are using `tcp.port ==21` for our example
 
 4. Identify unencrypted traffic containing credentials.
 
     - clicking on any of the packet -> follow -> TCP stream reveals more info 
   
-  ![alt text](image-24.png)
-  ![alt text](image-25.png)
+  ![alt text](evidence/image-24.png)
+  ![alt text](evidence/image-25.png)
 
 > Note that with SSh, you'll see a lot of gibberish
 
@@ -182,17 +182,17 @@ For SSH specifically, its a bit hard because metaslpoitable 2 only offers ssh-rs
 
     vim ~/.ssh/config
 
-![alt text](image-29.png)
+![alt text](evidence/image-29.png)
 
 and we can put the following block in the file to force kali to accept this key
 
-![alt text](image-30.png)
+![alt text](evidence/image-30.png)
 
 now we have successfully go into metasploitable from kali using SSh
 
 following the previous step that we do for ftp and telnet, we can sniff SSH using wireshark, however as told previously, SSH package is gibberish, due to it being encrypted
 
-![alt text](image-31.png)
+![alt text](evidence/image-31.png)
 
 
 ### Capturing Packets using tcpdump
@@ -200,14 +200,14 @@ following the previous step that we do for ftp and telnet, we can sniff SSH usin
 
 After using the above command, go into a new terminal and log into metasploit using FTP, SSH or telnet
 
-![alt text](image-26.png)
-![alt text](image-27.png)
+![alt text](evidence/image-26.png)
+![alt text](evidence/image-27.png)
 
 once you're done press `ctrl` + `c` to exit and analyse `capture.pcap` in Wireshark
 
     use the command `wireshark capture.pcap` to open the file 
 
-![alt text](image-28.png)
+![alt text](evidence/image-28.png)
 
 ---
 
