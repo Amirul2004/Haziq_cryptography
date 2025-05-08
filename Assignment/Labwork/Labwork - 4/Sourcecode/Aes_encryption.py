@@ -2,7 +2,7 @@
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 import os
 
-# generate random bytes, specifically 32 bytes 
+# generate random bytes, specifically 32 bytes , urandom means unpredictable random
 key = os.urandom(32)  # 256-bit key
 iv = os.urandom(16)   # AES block size
 message = b"Cryptography Lab by Haziq@NWS0200!"
@@ -11,7 +11,8 @@ message = b"Cryptography Lab by Haziq@NWS0200!"
 while len(message) % 16 != 0:
     message += b' '
 
-cipher = Cipher(algorithms.AES(key), modes.CBC(iv))
+#we're setting up an encryption engine,
+cipher = Cipher(algorithms.AES(key), modes.CBC(iv)) #CBC is cipher block chaining
 encryptor = cipher.encryptor()
 ciphertext = encryptor.update(message) + encryptor.finalize()
 
