@@ -1,5 +1,5 @@
-# Practical Test 2
-Malware analysis
+# Practical Test 2 : Malware analysis
+
 
 ## Task 1 : Static analysis and Reverse Engineering
 
