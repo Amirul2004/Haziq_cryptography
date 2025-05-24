@@ -120,6 +120,10 @@ python decrypt.py
 
 Afterwards, the locked files should be unlocked and we can view the content
 
+![alt text](screenshot/info1.png)
+![alt text](screenshot/info2.png)
+![alt text](screenshot/info3.png)
+
 
 >note that the file use pycryptodome, so if you're met with the following message, you can install it using the command 
 
